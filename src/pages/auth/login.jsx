@@ -26,14 +26,12 @@ const Login = () => {
     <>
       <DefaultLayout>
         <LoginCards>
-          <span className="text-primary-green text-2xl font-semibold">
-            Masuk
-          </span>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label className="font-semibold">Email</label>
                 <FormInput
+                  label="Email"
                   name="email"
                   control={control}
                   rules={emailRules}
@@ -42,8 +40,8 @@ const Login = () => {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="font-semibold">Password</label>
                 <FormInput
+                  label="Password"
                   name="password"
                   control={control}
                   rules={passwordRules}
