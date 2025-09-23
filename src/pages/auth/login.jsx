@@ -1,7 +1,7 @@
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import DefaultLayout from "../../components/organism/layouts";
 import LoginCards from "../../components/molecules/login-cards";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useCallback } from "react";
 import FormInput from "../../components/molecules/input-forms";
 import { emailRules, passwordRules } from "../../validations/authRules";
