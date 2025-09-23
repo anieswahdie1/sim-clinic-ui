@@ -3,6 +3,8 @@ import DefaultLayout from "../../components/organism/layouts";
 import LoginCards from "../../components/molecules/login-cards";
 import { Controller, useForm } from "react-hook-form";
 import { useCallback } from "react";
+import FormInput from "../../components/molecules/input-forms";
+import { emailRules, passwordRules } from "../../validations/authRules";
 
 const Login = () => {
   const {
@@ -31,48 +33,23 @@ const Login = () => {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label className="font-semibold">Email</label>
-                <Controller
+                <FormInput
                   name="email"
                   control={control}
-                  rules={{ required: "Email wajib diisi!" }}
-                  render={({ field }) => (
-                    <>
-                      <Input
-                        {...field}
-                        size="large"
-                        placeholder="Masukkan email Anda"
-                        status={errors?.email ? "error" : ""}
-                      />
-                      {errors?.email && (
-                        <span className="text-red-500 text-xs mt-1">
-                          {errors?.email?.message}
-                        </span>
-                      )}
-                    </>
-                  )}
+                  rules={emailRules}
+                  placeholder="Masukkan email Anda"
+                  errors={errors.email}
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="font-semibold">Password</label>
-                <Controller
+                <FormInput
                   name="password"
                   control={control}
-                  rules={{ required: "Password wajib diisi!" }}
-                  render={({ field }) => (
-                    <>
-                      <Input
-                        {...field}
-                        size="large"
-                        placeholder="Masukkan password Anda"
-                        status={errors.password ? "error" : ""}
-                      />
-                      {errors.password && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {errors.password.message}
-                        </p>
-                      )}
-                    </>
-                  )}
+                  rules={passwordRules}
+                  placeholder="Masukkan password Anda"
+                  type="password"
+                  errors={errors.password}
                 />
               </div>
               <div className="flex justify-end">
