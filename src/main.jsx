@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import "antd/dist/antd.css";
+import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import pageRouter from "./routes";
 import { StrictMode } from "react";

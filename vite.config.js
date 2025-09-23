@@ -1,17 +1,18 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react()],
-  define:{
-    'process.env':{},
+  plugins: [react(), tailwindcss()],
+  define: {
+    "process.env": {},
   },
   server: {
-    port:3000,
+    port: 3000,
     historyApiFallback: true,
   },
-  build:{
-    outDir: 'dist',
+  build: {
+    outDir: "dist",
     sourcemap: false,
-  }
-})
+  },
+});
