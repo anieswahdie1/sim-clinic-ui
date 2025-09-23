@@ -28,8 +28,10 @@ const Login = () => {
         <LoginCards>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4">
+              <span className="text-3xl font-semibold text-primary-green">
+                Masuk
+              </span>
               <div className="flex flex-col gap-2">
-                <label className="font-semibold">Email</label>
                 <FormInput
                   label="Email"
                   name="email"
