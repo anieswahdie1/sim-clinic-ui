@@ -9,11 +9,14 @@ import {
 import { useCallback, useState } from "react";
 import useAuth from "../../../../stores/useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const DrawerMenu = () => {
   const isOpenDrawer = useMenuDrawer((state) => state.isOpenDrawer);
   const setDrawermenuClose = useMenuDrawer((state) => state.setDrawermenuClose);
   const setAuthorizeFalse = useAuth((state) => state.setAuthorizeFalse);
+
+  const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -27,11 +30,12 @@ const DrawerMenu = () => {
     Swal.fire({
       title: "Logout Success!",
       icon: "success",
-      timer: 3000,
+      timer: 2000,
       timerProgressBar: true,
       showConfirmButton: false,
     });
-  }, [setAuthorizeFalse, setDrawermenuClose]);
+    navigate("/");
+  }, [navigate, setAuthorizeFalse, setDrawermenuClose]);
 
   return (
     <Drawer

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useMenuDrawer from "../../../stores/useMenuDrawer";
 import useAuth from "../../../stores/useAuth";
 import { LogoAraMedika } from "../../../assets";
+import DrawerMenu from "../../molecules/drawers/menu-drawer";
 
 const Header = () => {
   const setDrawermenuOpen = useMenuDrawer((state) => state.setDrawermenuOpen);
@@ -21,6 +22,7 @@ const Header = () => {
           onClick={setDrawermenuOpen}
         />
       )}
+      <DrawerMenu />
     </div>
   );
 };
