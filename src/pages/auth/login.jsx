@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useCallback } from "react";
 import FormInput from "../../components/molecules/input-forms";
 import { emailRules, passwordRules } from "../../validations/authRules";
+import DrawerMenu from "../../components/molecules/drawers/menu-drawer";
+import useAuth from "../../stores/useAuth";
 
 const Login = () => {
   const {
@@ -18,9 +20,15 @@ const Login = () => {
     },
   });
 
-  const onSubmit = useCallback((data) => {
-    console.log(data);
-  }, []);
+  const setAuthorizeTrue = useAuth((state) => state.setAuthorizeTrue);
+
+  const onSubmit = useCallback(
+    (data) => {
+      console.log(data);
+      setAuthorizeTrue();
+    },
+    [setAuthorizeTrue]
+  );
 
   return (
     <>
@@ -64,6 +72,7 @@ const Login = () => {
           </form>
         </LoginCards>
       </DefaultLayout>
+      <DrawerMenu />
     </>
   );
 };
