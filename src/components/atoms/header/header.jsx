@@ -2,6 +2,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useMenuDrawer from "../../../stores/useMenuDrawer";
 import useAuth from "../../../stores/useAuth";
+import { LogoAraMedika } from "../../../assets";
 
 const Header = () => {
   const setDrawermenuOpen = useMenuDrawer((state) => state.setDrawermenuOpen);
@@ -9,7 +10,7 @@ const Header = () => {
 
   return (
     <div className="flex flex-row justify-between items-center px-5 min-h-[56px] bg-white fixed top-0 left-0 right-0 z-10">
-      <img src="../../../public/ara-medika.svg" width={50} height={50} />
+      <img src={LogoAraMedika} width={50} height={50} />
       {isAuthorize && (
         <FontAwesomeIcon
           icon={faBars}
