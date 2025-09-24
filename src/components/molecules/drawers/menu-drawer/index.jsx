@@ -1,4 +1,4 @@
-import { Button, Divider, Drawer } from "antd";
+import { Button, Drawer } from "antd";
 import useMenuDrawer from "../../../../stores/useMenuDrawer";
 import TitleDrawerMenu from "../../../atoms/drawers/menu/title-drawer-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,8 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useCallback, useState } from "react";
 import useAuth from "../../../../stores/useAuth";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import SuccessAlert from "../../../atoms/alerts/success";
 
 const DrawerMenu = () => {
   const isOpenDrawer = useMenuDrawer((state) => state.isOpenDrawer);
@@ -27,13 +27,7 @@ const DrawerMenu = () => {
   const onClickLogout = useCallback(() => {
     setDrawermenuClose();
     setAuthorizeFalse();
-    Swal.fire({
-      title: "Logout Success!",
-      icon: "success",
-      timer: 2000,
-      timerProgressBar: true,
-      showConfirmButton: false,
-    });
+    SuccessAlert("Logout Berhasil!");
     navigate("/");
   }, [navigate, setAuthorizeFalse, setDrawermenuClose]);
 

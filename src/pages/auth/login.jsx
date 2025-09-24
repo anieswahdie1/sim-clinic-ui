@@ -7,7 +7,7 @@ import FormInput from "../../components/molecules/input-forms";
 import { emailRules, passwordRules } from "../../validations/authRules";
 import useAuth from "../../stores/useAuth";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import SuccesAlert from "../../components/atoms/alerts/success/index.jsx";
 
 const Login = () => {
   const {
@@ -29,14 +29,8 @@ const Login = () => {
     (data) => {
       console.log(data);
       setAuthorizeTrue();
+      SuccesAlert("Login Berhasil!");
       navigate("/home");
-      Swal.fire({
-        title: "Login Sukses!",
-        icon: "success",
-        timer: 2000,
-        showConfirmButton: false,
-        timerProgressBar: true,
-      });
     },
     [navigate, setAuthorizeTrue]
   );
