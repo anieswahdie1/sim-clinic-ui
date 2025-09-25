@@ -6,7 +6,7 @@ const WelcomePages = () => {
   return (
     <>
       <DefaultLayout>
-        <div className="min-h-[75vh] min-w-[95vw] max-w-[100vw] rounded-2xl p-2 bg-white">
+        <div className="min-h-[75vh] min-w-[95vw] max-w-[100vw] rounded-2xl p-2 bg-white text-primary-green flex font-bold text-center items-center justify-center">
           Selamat Datang, {username}!
         </div>
       </DefaultLayout>
