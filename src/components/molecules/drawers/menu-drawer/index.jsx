@@ -31,7 +31,7 @@ const DrawerMenu = () => {
     if (success) {
       setDrawermenuClose();
       setAuthorizeFalse();
-      SuccessAlert("Logout Berhasil!");
+      SuccessAlert(data);
       navigate("/");
       return;
     }

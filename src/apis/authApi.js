@@ -34,7 +34,7 @@ const logout = async () => {
     const res = await axiosInstance.post("/auth/logout");
     if (res?.status === 200) {
       result.success = true;
-      result.data = res?.data?.data;
+      result.data = res?.data?.data?.message;
       result.code = res?.status;
     }
   } catch (error) {
