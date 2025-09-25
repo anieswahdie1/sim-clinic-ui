@@ -4,10 +4,12 @@ import LoginCards from "../../components/molecules/login-cards";
 import { useForm } from "react-hook-form";
 import { useCallback } from "react";
 import FormInput from "../../components/molecules/input-forms";
-import { emailRules, passwordRules } from "../../validations/authRules";
+import { passwordRules, usernameRules } from "../../validations/authRules";
 import useAuth from "../../stores/useAuth";
 import { useNavigate } from "react-router-dom";
 import SuccesAlert from "../../components/atoms/alerts/success/index.jsx";
+import authApi from "../../apis/authApi.js";
+import FailedAlerts from "../../components/atoms/alerts/failed/index.jsx";
 
 const Login = () => {
   const {
@@ -26,11 +28,15 @@ const Login = () => {
   const setAuthorizeTrue = useAuth((state) => state.setAuthorizeTrue);
 
   const onSubmit = useCallback(
-    (data) => {
-      console.log(data);
-      setAuthorizeTrue();
-      SuccesAlert("Login Berhasil!");
-      navigate("/home");
+    async (payload) => {
+      const { data, success } = await authApi.login(payload);
+      if (success) {
+        setAuthorizeTrue(data);
+        navigate("/home");
+        SuccesAlert("Login Berhasil!");
+        return;
+      }
+      FailedAlerts(data);
     },
     [navigate, setAuthorizeTrue]
   );
@@ -46,10 +52,10 @@ const Login = () => {
               </span>
               <div className="flex flex-col gap-2">
                 <FormInput
-                  label="Email"
-                  name="email"
+                  label="Username"
+                  name="username"
                   control={control}
-                  rules={emailRules}
+                  rules={usernameRules}
                   placeholder="Masukkan email Anda"
                   errors={errors.email}
                 />

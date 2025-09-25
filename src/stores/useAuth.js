@@ -5,9 +5,12 @@ const useAuth = create(
   persist(
     (set) => ({
       isAuthorize: false,
-      setAuthorizeTrue: () => set({ isAuthorize: true }),
+      accessToken: null,
+      setAuthorizeTrue: (state) => {
+        set({ isAuthorize: true, accessToken: state.access_token });
+      },
       setAuthorizeFalse: () => {
-        set({ isAuthorize: false });
+        set({ isAuthorize: false, accessToken: null });
         localStorage.removeItem("auth-storage");
       },
     }),

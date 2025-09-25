@@ -10,6 +10,8 @@ import { useCallback, useState } from "react";
 import useAuth from "../../../../stores/useAuth";
 import { useNavigate } from "react-router-dom";
 import SuccessAlert from "../../../atoms/alerts/success";
+import authApi from "../../../../apis/authApi";
+import FailedAlerts from "../../../atoms/alerts/failed";
 
 const DrawerMenu = () => {
   const isOpenDrawer = useMenuDrawer((state) => state.isOpenDrawer);
@@ -24,11 +26,17 @@ const DrawerMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);
 
-  const onClickLogout = useCallback(() => {
+  const onClickLogout = useCallback(async () => {
+    const { success, data } = await authApi.logout();
+    if (success) {
+      setDrawermenuClose();
+      setAuthorizeFalse();
+      SuccessAlert("Logout Berhasil!");
+      navigate("/");
+      return;
+    }
     setDrawermenuClose();
-    setAuthorizeFalse();
-    SuccessAlert("Logout Berhasil!");
-    navigate("/");
+    FailedAlerts(data);
   }, [navigate, setAuthorizeFalse, setDrawermenuClose]);
 
   return (
