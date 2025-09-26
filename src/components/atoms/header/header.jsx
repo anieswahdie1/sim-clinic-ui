@@ -15,7 +15,7 @@ const Header = () => {
       <img src={LogoAraMedika} width={50} height={50} />
       {isAuthorize && (
         <div className="flex flex-row gap-2 items-center">
-          <span className="text-sm font-semibold opacity-70 text-primary-green">
+          <span className="text-sm font-semibold text-primary-green">
             {username}
           </span>
           <FontAwesomeIcon

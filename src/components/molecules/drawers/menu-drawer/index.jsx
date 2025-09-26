@@ -1,30 +1,22 @@
 import { Button, Drawer } from "antd";
 import useMenuDrawer from "../../../../stores/useMenuDrawer";
 import TitleDrawerMenu from "../../../atoms/drawers/menu/title-drawer-menu";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronCircleDown,
-  faChevronCircleUp,
-} from "@fortawesome/free-solid-svg-icons";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo } from "react";
+import ListMenu from "./listMenu";
+import ParentMenuItem from "../../../atoms/drawers/menu-item/parent-menu-item";
 import useAuth from "../../../../stores/useAuth";
+import authApi from "../../../../apis/authApi";
 import { useNavigate } from "react-router-dom";
 import SuccessAlert from "../../../atoms/alerts/success";
-import authApi from "../../../../apis/authApi";
 import FailedAlerts from "../../../atoms/alerts/failed";
 
 const DrawerMenu = () => {
+  const role = useAuth((state) => state.role);
   const isOpenDrawer = useMenuDrawer((state) => state.isOpenDrawer);
   const setDrawermenuClose = useMenuDrawer((state) => state.setDrawermenuClose);
   const setAuthorizeFalse = useAuth((state) => state.setAuthorizeFalse);
 
   const navigate = useNavigate();
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const selectMenu = useCallback(() => {
-    setIsMenuOpen(!isMenuOpen);
-  }, [isMenuOpen]);
 
   const onClickLogout = useCallback(async () => {
     const { success, data } = await authApi.logout();
@@ -39,6 +31,19 @@ const DrawerMenu = () => {
     FailedAlerts(data);
   }, [navigate, setAuthorizeFalse, setDrawermenuClose]);
 
+  const listMenus = useMemo(() => {
+    let list = [];
+
+    for (let i = 0; i < ListMenu.length; i++) {
+      for (let j = 0; j < ListMenu[i].canAccessBy.length; j++) {
+        if (ListMenu[i].canAccessBy[j] === role) {
+          list.push(ListMenu[i]);
+        }
+      }
+    }
+    return list;
+  }, [role]);
+
   return (
     <Drawer
       title={<TitleDrawerMenu onClose={setDrawermenuClose} title={"Menu"} />}
@@ -47,25 +52,9 @@ const DrawerMenu = () => {
       open={isOpenDrawer}
     >
       <div className="flex flex-col gap-2 mb-5">
-        <div className="flex flex-col gap-1">
-          <div
-            className="flex flex-row justify-between items-center cursor-pointer"
-            onClick={selectMenu}
-          >
-            <span className="font-semibold text-sm text-primary-green">
-              User Management
-            </span>
-            <FontAwesomeIcon
-              icon={!isMenuOpen ? faChevronCircleDown : faChevronCircleUp}
-              color="#2e5b36"
-            />
-          </div>
-          <div className="px-2 bg-[#57cb81] rounded-sm">
-            {isMenuOpen && (
-              <span className="text-sm font-semibold text-white">User</span>
-            )}
-          </div>
-        </div>
+        {listMenus.map((el, idx) => {
+          return <ParentMenuItem key={idx} data={el} />;
+        })}
       </div>
       <hr className="opacity-5 mb-2" />
       <Button danger className="font-semibold" onClick={onClickLogout}>

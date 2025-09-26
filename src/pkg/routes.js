@@ -14,7 +14,12 @@ const ROUTES = Object.freeze({
     },
   },
   MEDICAL_RECORDS: {
-    INDEX: "/medical-records",
+    INFORMED_CONSENT: {
+      INDEX: "/medical-records/informed-consent",
+    },
+    HISTORY: {
+      INDEX: "/medical-records/history",
+    },
   },
   MONITORING: {
     CUSTOMER: {
