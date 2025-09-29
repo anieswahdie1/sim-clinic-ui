@@ -16,6 +16,7 @@ const ModalConfirmation = ({
         onCancel={actionCancel}
         okText="Yes"
         cancelText="No"
+        centered
       >
         {text}
       </Modal>

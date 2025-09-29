@@ -5,10 +5,15 @@ import { Button, Input, Table } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ModalConfirmation from "../../../components/atoms/modals";
+import ModalViewDetail from "../../../components/atoms/modal-view";
 
 const ListUser = () => {
   const [list, setList] = useState([]);
+
   const [openModalConfirmDelete, setOpenModalConfirmDelete] = useState(false);
+  const [openModalViewDetail, setOpenModalViewDetail] = useState(false);
+
+  const [textViewDetail, setTextViewDetail] = useState();
 
   const actionOpenModalConfirmDelete = useCallback(() => {
     setOpenModalConfirmDelete(true);
@@ -16,6 +21,32 @@ const ListUser = () => {
 
   const closeModalConfirmDelete = useCallback(() => {
     setOpenModalConfirmDelete(false);
+  }, []);
+
+  const actionOpenModalViewDetail = useCallback((data) => {
+    setTextViewDetail(
+      <>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row gap-1">
+            <span className="text-gray-700 font-semibold">Username : </span>
+            <span className="font-semibold">{data?.username}</span>
+          </div>
+          <div className="flex flex-row gap-1">
+            <span className="text-gray-700 font-semibold">Email : </span>
+            <span className="font-semibold">{data?.email}</span>
+          </div>
+          <div className="flex flex-row gap-1">
+            <span className="text-gray-700 font-semibold">Role : </span>
+            <span className="font-semibold">{data?.role}</span>
+          </div>
+        </div>
+      </>
+    );
+    setOpenModalViewDetail(true);
+  }, []);
+
+  const closeModalViewDetail = useCallback(() => {
+    setOpenModalViewDetail(false);
   }, []);
 
   const getListUser = useCallback(async () => {
@@ -59,11 +90,14 @@ const ListUser = () => {
             icon={faEye}
             color="#2e5b36"
             className="cursor-pointer"
+            onClick={() => {
+              actionOpenModalViewDetail(el);
+            }}
           />
         </div>
       ),
     }));
-  }, [actionOpenModalConfirmDelete, list]);
+  }, [actionOpenModalConfirmDelete, actionOpenModalViewDetail, list]);
 
   const columns = useMemo(() => {
     const cols = [
@@ -126,6 +160,12 @@ const ListUser = () => {
           actionCancel={closeModalConfirmDelete}
           title={"Konfirmasi Hapus Data"}
           text={"Apakah Anda yakin akan menghapus data berikut?"}
+        />
+        <ModalViewDetail
+          openModal={openModalViewDetail}
+          text={textViewDetail}
+          title={"Detail Data"}
+          actionClose={closeModalViewDetail}
         />
       </DefaultLayout>
     </>
