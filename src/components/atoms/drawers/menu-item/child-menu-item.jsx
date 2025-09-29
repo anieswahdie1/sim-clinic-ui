@@ -24,8 +24,10 @@ const ChildMenuItem = ({ data }) => {
   const onClickChildMenu = useCallback(() => {
     setIsChildActive(!isChildActive);
     setGlobalActiveMenu(data);
-    navigate(data?.path);
     setDrawermenuClose();
+    setTimeout(() => {
+      navigate(data?.path);
+    }, "1000");
   }, [data, isChildActive, navigate, setDrawermenuClose, setGlobalActiveMenu]);
 
   return (

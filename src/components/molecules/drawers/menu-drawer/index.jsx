@@ -9,12 +9,16 @@ import authApi from "../../../../apis/authApi";
 import { useNavigate } from "react-router-dom";
 import SuccessAlert from "../../../atoms/alerts/success";
 import FailedAlerts from "../../../atoms/alerts/failed";
+import useMenuConfig from "../../../../stores/useMenuConfig";
 
 const DrawerMenu = () => {
   const role = useAuth((state) => state.role);
   const isOpenDrawer = useMenuDrawer((state) => state.isOpenDrawer);
   const setDrawermenuClose = useMenuDrawer((state) => state.setDrawermenuClose);
   const setAuthorizeFalse = useAuth((state) => state.setAuthorizeFalse);
+  const resetGlobalActiveMenu = useMenuConfig(
+    (state) => state.resetGlobalActiveMenu
+  );
 
   const navigate = useNavigate();
 
@@ -25,11 +29,12 @@ const DrawerMenu = () => {
       setAuthorizeFalse();
       SuccessAlert(data);
       navigate("/");
+      resetGlobalActiveMenu();
       return;
     }
     setDrawermenuClose();
     FailedAlerts(data);
-  }, [navigate, setAuthorizeFalse, setDrawermenuClose]);
+  }, [navigate, resetGlobalActiveMenu, setAuthorizeFalse, setDrawermenuClose]);
 
   const listMenus = useMemo(() => {
     let list = [];

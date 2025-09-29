@@ -14,6 +14,13 @@ const useMenuConfig = create(
           isMenuActive: true,
         });
       },
+      resetGlobalActiveMenu: () => {
+        set({
+          pathParentmenu: null,
+          pathChildMenu: null,
+          isMenuActive: false,
+        });
+      },
     }),
     {
       name: "config-menu",
