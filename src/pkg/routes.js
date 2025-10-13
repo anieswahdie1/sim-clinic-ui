@@ -34,6 +34,11 @@ const ROUTES = Object.freeze({
       INDEX: "/user-management/user",
     },
   },
+  PELAYANAN: {
+    AKUPUNTUR: {
+      INDEX: "/pelayanan/akupuntur",
+    },
+  },
 });
 
 export default ROUTES;
