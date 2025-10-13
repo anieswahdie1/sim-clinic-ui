@@ -119,7 +119,7 @@ const ListMenu = Object.freeze([
         id: 1,
         name: "Akupuntur",
         parentPath: "/pelayanan",
-        path: ROUTES.PELAYANAN.AKUPUNTUR,
+        path: ROUTES.PELAYANAN.AKUPUNTUR.INDEX,
         icon: faPeopleArrows,
       },
     ],
