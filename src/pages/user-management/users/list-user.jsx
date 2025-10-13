@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ModalConfirmation from "../../../components/atoms/modals";
 import ModalViewDetail from "../../../components/atoms/modal-view";
+import { changeRoles } from "../../../utils/change-role";
 
 const ListUser = () => {
   const [list, setList] = useState([]);
@@ -28,16 +29,22 @@ const ListUser = () => {
       <>
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-1">
-            <span className="text-gray-700 font-semibold">Username : </span>
-            <span className="font-semibold">{data?.username}</span>
+            <span className="text-gray-700 font-semibold min-w-[100px]">
+              Username
+            </span>
+            <span className="font-semibold">: {data?.username}</span>
           </div>
           <div className="flex flex-row gap-1">
-            <span className="text-gray-700 font-semibold">Email : </span>
-            <span className="font-semibold">{data?.email}</span>
+            <span className="text-gray-700 font-semibold min-w-[100px]">
+              Email
+            </span>
+            <span className="font-semibold">: {data?.email}</span>
           </div>
           <div className="flex flex-row gap-1">
-            <span className="text-gray-700 font-semibold">Role : </span>
-            <span className="font-semibold">{data?.role}</span>
+            <span className="text-gray-700 font-semibold min-w-[100px]">
+              Role
+            </span>
+            <span className="font-semibold">: {changeRoles(data?.role)}</span>
           </div>
         </div>
       </>
