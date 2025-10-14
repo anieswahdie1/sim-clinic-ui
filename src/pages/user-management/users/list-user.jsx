@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import DefaultLayout from "../../../components/organism/layouts";
 import userApi from "../../../apis/userApi";
-import { Table } from "antd";
+import { Pagination, Table } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ModalConfirmation from "../../../components/atoms/modals";
@@ -16,6 +16,8 @@ const ListUser = () => {
 
   const [openModalConfirmDelete, setOpenModalConfirmDelete] = useState(false);
   const [openModalViewDetail, setOpenModalViewDetail] = useState(false);
+  const [totalUser, setTotalUser] = useState(0);
+  const [page, setPage] = useState(2);
 
   const [textViewDetail, setTextViewDetail] = useState();
 
@@ -47,12 +49,13 @@ const ListUser = () => {
   }, []);
 
   const getListUser = useCallback(async () => {
-    const { data, success } = await userApi.getList();
+    const { data, success } = await userApi.getList(page, 5);
     if (success) {
-      setList(data);
+      setList(data?.data);
+      setTotalUser(data?.total);
       return;
     }
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     getListUser();
@@ -135,6 +138,10 @@ const ListUser = () => {
     console.log("tambah user");
   }, []);
 
+  const onChangePagination = useCallback((evt) => {
+    setPage(evt);
+  }, []);
+
   return (
     <>
       <DefaultLayout>
@@ -146,12 +153,20 @@ const ListUser = () => {
               btnAction={actionTambahUser}
               addBtnActive
             />
-            <div className="overflow-y-auto max-w-[95vw]">
+            <div className="overflow-y-auto max-w-[95vw] h-[280px]">
               <Table
                 dataSource={dataSources}
                 columns={columns}
                 size="small"
                 pagination={false}
+              />
+            </div>
+            <div className="flex justify-end">
+              <Pagination
+                current={page}
+                pageSize={5}
+                total={totalUser}
+                onChange={onChangePagination}
               />
             </div>
           </div>

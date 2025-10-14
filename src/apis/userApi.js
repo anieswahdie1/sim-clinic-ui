@@ -1,6 +1,6 @@
 import axiosInstance from "../middleware/instances";
 
-const getList = async () => {
+const getList = async (page, limit, search) => {
   const result = {
     success: false,
     data: undefined,
@@ -8,7 +8,13 @@ const getList = async () => {
   };
 
   try {
-    const res = await axiosInstance.get("/users");
+    const res = await axiosInstance.get("/users", {
+      params: {
+        page,
+        limit,
+        search,
+      },
+    });
     if (res?.status === 200) {
       result.success = true;
       result.data = res?.data?.data;
