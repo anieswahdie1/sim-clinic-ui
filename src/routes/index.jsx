@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/auth/login.jsx";
 import WelcomePages from "../pages/welcome-pages/index.jsx";
 import ROUTES from "../pkg/routes.js";
 import ListUser from "../pages/user-management/users/list-user.jsx";
 import ListLayananTerapi from "../pages/master-data/layanan-terapi/index.jsx";
 import Akupuntur from "../pages/pelayanan/akupuntur/index.jsx";
+import Main from "../pages/auth/index.jsx";
 
 const pageRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Main />,
   },
   {
     path: "/home",

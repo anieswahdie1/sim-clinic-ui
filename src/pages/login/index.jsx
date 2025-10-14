@@ -1,17 +1,20 @@
-import { Button } from "antd";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../stores/useAuth";
+import { useCallback } from "react";
+import authApi from "../../apis/authApi";
+import SuccessAlert from "../../components/atoms/alerts/success";
+import FailedAlerts from "../../components/atoms/alerts/failed";
 import DefaultLayout from "../../components/organism/layouts";
 import LoginCards from "../../components/molecules/login-cards";
-import { useForm } from "react-hook-form";
-import { useCallback } from "react";
-import FormInput from "../../components/molecules/input-forms";
 import { passwordRules, usernameRules } from "../../validations/authRules";
-import useAuth from "../../stores/useAuth";
-import { useNavigate } from "react-router-dom";
-import SuccesAlert from "../../components/atoms/alerts/success/index.jsx";
-import authApi from "../../apis/authApi.js";
-import FailedAlerts from "../../components/atoms/alerts/failed/index.jsx";
+import FormInput from "../../components/molecules/input-forms";
+import { Button } from "antd";
 
-const Login = () => {
+const LoginPage = () => {
+  const navigate = useNavigate();
+  const setAuthorizeTrue = useAuth((state) => state.setAuthorizeTrue);
+
   const {
     control,
     handleSubmit,
@@ -23,17 +26,13 @@ const Login = () => {
     },
   });
 
-  const navigate = useNavigate();
-
-  const setAuthorizeTrue = useAuth((state) => state.setAuthorizeTrue);
-
   const onSubmit = useCallback(
     async (payload) => {
       const { data, success } = await authApi.login(payload);
       if (success) {
         setAuthorizeTrue(data);
         navigate("/home");
-        SuccesAlert("Login Berhasil!");
+        SuccessAlert("Login Berhasil!");
         return;
       }
       FailedAlerts(data);
@@ -87,4 +86,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -64,7 +64,7 @@ const ListUser = () => {
       key: idx,
       username: el?.username,
       email: el?.email,
-      role: el?.role,
+      role: changeRoles(el?.role),
       aksi: (
         <div className="flex flex-row gap-1">
           <FontAwesomeIcon
