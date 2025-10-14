@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import useAuth from "../../stores/useAuth";
 import LoginPage from "../login";
-import ListUser from "../user-management/users/list-user";
+import WelcomePages from "../welcome-pages";
 
 const Main = () => {
   const isAuthorize = useAuth((state) => state.isAuthorize);
@@ -15,7 +15,7 @@ const Main = () => {
     return false;
   }, [isAuthorize]);
 
-  return !isUserLoggedIn ? <LoginPage /> : <ListUser />;
+  return !isUserLoggedIn ? <LoginPage /> : <WelcomePages />;
 };
 
 export default Main;
