@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import DefaultLayout from "../../../components/organism/layouts";
 import userApi from "../../../apis/userApi";
-import { Button, Input, Table } from "antd";
+import { Table } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ModalConfirmation from "../../../components/atoms/modals";
 import ModalViewDetail from "../../../components/atoms/modal-view";
 import { changeRoles } from "../../../utils/change-role";
+import DefaultCanvas from "../../../components/atoms/canvas";
+import SearchForm from "../../../components/molecules/search-and-add";
+import ItemDetailData from "../../../components/molecules/item-detail-data";
 
 const ListUser = () => {
   const [list, setList] = useState([]);
@@ -28,24 +31,11 @@ const ListUser = () => {
     setTextViewDetail(
       <>
         <div className="flex flex-col gap-2">
-          <div className="flex flex-row gap-1">
-            <span className="text-gray-700 font-semibold min-w-[100px]">
-              Username
-            </span>
-            <span className="font-semibold">: {data?.username}</span>
-          </div>
-          <div className="flex flex-row gap-1">
-            <span className="text-gray-700 font-semibold min-w-[100px]">
-              Email
-            </span>
-            <span className="font-semibold">: {data?.email}</span>
-          </div>
-          <div className="flex flex-row gap-1">
-            <span className="text-gray-700 font-semibold min-w-[100px]">
-              Role
-            </span>
-            <span className="font-semibold">: {changeRoles(data?.role)}</span>
-          </div>
+          <ItemDetailData label={"Nama Lengkap"} data={data?.fullname} />
+          <ItemDetailData label={"Jabatan"} data={data?.jabatan} />
+          <ItemDetailData label={"Role"} data={changeRoles(data?.role)} />
+          <ItemDetailData label={"Username"} data={data?.username} />
+          <ItemDetailData label={"Email"} data={data?.email} />
         </div>
       </>
     );
@@ -137,20 +127,25 @@ const ListUser = () => {
     return cols;
   }, []);
 
+  const onSearch = useCallback((value) => {
+    console.log("value: ", value);
+  }, []);
+
+  const actionTambahUser = useCallback(() => {
+    console.log("tambah user");
+  }, []);
+
   return (
     <>
       <DefaultLayout>
-        <div className="min-h-[75vh] min-w-[95vw] max-w-[100vw] rounded-2xl p-4 bg-white ">
+        <DefaultCanvas>
           <div className="flex flex-col gap-2">
-            <div className="flex flex-row justify-between items-center my-5">
-              <Input
-                placeholder="Search by username"
-                className="max-w-[200px]"
-              />
-              <Button type="primary" size="middle">
-                Tambah User
-              </Button>
-            </div>
+            <SearchForm
+              onSearch={onSearch}
+              btnName={"Tambah User"}
+              btnAction={actionTambahUser}
+              addBtnActive
+            />
             <div className="overflow-y-auto max-w-[95vw]">
               <Table
                 dataSource={dataSources}
@@ -160,7 +155,7 @@ const ListUser = () => {
               />
             </div>
           </div>
-        </div>
+        </DefaultCanvas>
         <ModalConfirmation
           openModal={openModalConfirmDelete}
           actionOk={closeModalConfirmDelete}
@@ -171,7 +166,7 @@ const ListUser = () => {
         <ModalViewDetail
           openModal={openModalViewDetail}
           text={textViewDetail}
-          title={"Detail Data"}
+          title={"Detail Data User"}
           actionClose={closeModalViewDetail}
         />
       </DefaultLayout>

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import useMenuConfig from "../../../../stores/useMenuConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import useMenuDrawer from "../../../../stores/useMenuDrawer";
+import { usePage } from "../../../../stores/usePage";
 
 const ChildMenuItem = ({ data }) => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const ChildMenuItem = ({ data }) => {
 
   const { setGlobalActiveMenu } = useMenuConfig((state) => state);
   const { setDrawermenuClose } = useMenuDrawer((state) => state);
+  const { setIsLoadingTrue, setIsLoadingFalse } = usePage((state) => state);
 
   const [isChildActive, setIsChildActive] = useState(false);
 
@@ -22,13 +24,23 @@ const ChildMenuItem = ({ data }) => {
   }, [data.path, location.pathname]);
 
   const onClickChildMenu = useCallback(() => {
+    setIsLoadingTrue();
     setIsChildActive(!isChildActive);
     setGlobalActiveMenu(data);
     setDrawermenuClose();
     setTimeout(() => {
       navigate(data?.path);
+      setIsLoadingFalse();
     }, "1000");
-  }, [data, isChildActive, navigate, setDrawermenuClose, setGlobalActiveMenu]);
+  }, [
+    data,
+    isChildActive,
+    navigate,
+    setDrawermenuClose,
+    setGlobalActiveMenu,
+    setIsLoadingFalse,
+    setIsLoadingTrue,
+  ]);
 
   return (
     <>
