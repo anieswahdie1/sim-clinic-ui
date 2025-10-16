@@ -6,6 +6,7 @@ const SearchForm = ({
   btnAction,
   className,
   onSearch,
+  placeholder,
 }) => {
   return (
     <div
@@ -14,7 +15,7 @@ const SearchForm = ({
       )}
     >
       <Input.Search
-        placeholder="Search by username"
+        placeholder={!placeholder ? "Cari" : placeholder}
         className="max-w-[200px]"
         onSearch={onSearch}
       />
