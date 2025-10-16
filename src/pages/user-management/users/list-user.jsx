@@ -164,20 +164,20 @@ const ListUser = () => {
             />
           </div>
         </DefaultCanvas>
-        <ModalConfirmation
-          openModal={openModalConfirmDelete}
-          actionOk={closeModalConfirmDelete}
-          actionCancel={closeModalConfirmDelete}
-          title={"Konfirmasi Hapus Data"}
-          text={"Apakah Anda yakin akan menghapus data berikut?"}
-        />
-        <ModalViewDetail
-          openModal={openModalViewDetail}
-          text={textViewDetail}
-          title={"Detail Data User"}
-          actionClose={closeModalViewDetail}
-        />
       </DefaultLayout>
+      <ModalConfirmation
+        openModal={openModalConfirmDelete}
+        actionOk={closeModalConfirmDelete}
+        actionCancel={closeModalConfirmDelete}
+        title={"Konfirmasi Hapus Data"}
+        text={"Apakah Anda yakin akan menghapus data berikut?"}
+      />
+      <ModalViewDetail
+        openModal={openModalViewDetail}
+        text={textViewDetail}
+        title={"Detail Data User"}
+        actionClose={closeModalViewDetail}
+      />
     </>
   );
 };
