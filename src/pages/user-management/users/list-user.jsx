@@ -10,6 +10,7 @@ import DefaultCanvas from "../../../components/atoms/canvas";
 import SearchForm from "../../../components/molecules/search-and-add";
 import ItemDetailData from "../../../components/molecules/item-detail-data";
 import DefaultTable from "../../../components/molecules/tables";
+import DrawerInputForm from "./components/drawer-input-form";
 
 const ListUser = () => {
   const [list, setList] = useState([]);
@@ -21,6 +22,8 @@ const ListUser = () => {
   const [searchKeyword, setSearchKeyword] = useState();
 
   const [textViewDetail, setTextViewDetail] = useState();
+
+  const [openDrawerInputForm, setOpenDrawerInputForm] = useState(false);
 
   const actionOpenModalConfirmDelete = useCallback(() => {
     setOpenModalConfirmDelete(true);
@@ -136,7 +139,7 @@ const ListUser = () => {
   }, []);
 
   const actionTambahUser = useCallback(() => {
-    console.log("tambah user");
+    setOpenDrawerInputForm(true);
   }, []);
 
   const onChangePagination = useCallback((evt) => {
@@ -177,6 +180,13 @@ const ListUser = () => {
         text={textViewDetail}
         title={"Detail Data User"}
         actionClose={closeModalViewDetail}
+      />
+      <DrawerInputForm
+        title="Form Tambah User"
+        open={openDrawerInputForm}
+        onClose={() => {
+          setOpenDrawerInputForm(false);
+        }}
       />
     </>
   );
