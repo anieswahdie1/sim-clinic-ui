@@ -5,6 +5,7 @@ import ListUser from "../pages/user-management/users/list-user.jsx";
 import ListLayananTerapi from "../pages/master-data/layanan-terapi/index.jsx";
 import Akupuntur from "../pages/pelayanan/akupuntur/index.jsx";
 import Main from "../pages/auth/index.jsx";
+import PageNotFound from "../pages/error/page-not-found.jsx";
 
 const pageRouter = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const pageRouter = createBrowserRouter([
   {
     path: ROUTES.PELAYANAN.AKUPUNTUR.INDEX,
     element: <Akupuntur />,
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 

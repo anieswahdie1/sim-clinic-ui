@@ -23,14 +23,14 @@ axiosInstance.interceptors.request.use(
 
 // intercept response from api
 axiosInstance.interceptors.response.use(
-  (response) => response
-  // (error) => {
-  //   if (error.response?.status === 401) {
-  //     useAuth.getState().setAuthorizeFalse();
-  //     // window.location.href = "/";
-  //   }
-  //   return Promise.reject(error);
-  // }
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      useAuth.getState().setAuthorizeFalse();
+      window.location.href = "/";
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default axiosInstance;
